@@ -16,7 +16,7 @@ from models.state import State
 from models.user import User
 import json
 import os
-import pep8
+import pycodestyle as pep8
 import unittest
 DBStorage = db_storage.DBStorage
 classes = {"Amenity": Amenity, "City": City, "Place": Place,
@@ -86,3 +86,11 @@ class TestFileStorage(unittest.TestCase):
     @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
     def test_save(self):
         """Test that save properly saves objects to file.json"""
+
+    # @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
+    # def test_get(self):
+    #     """Tests the get function"""
+
+    # @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
+    # def test_count(self):
+    #     """Tests the count function"""

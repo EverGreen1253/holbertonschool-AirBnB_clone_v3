@@ -16,7 +16,7 @@ from models.state import State
 from models.user import User
 import json
 import os
-import pep8
+import pycodestyle as pep8
 import unittest
 FileStorage = file_storage.FileStorage
 classes = {"Amenity": Amenity, "BaseModel": BaseModel, "City": City,
@@ -113,3 +113,21 @@ class TestFileStorage(unittest.TestCase):
         with open("file.json", "r") as f:
             js = f.read()
         self.assertEqual(json.loads(string), json.loads(js))
+
+    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
+    def test_get(self):
+        """Tests the get function"""
+        storage = FileStorage()
+        s = State()
+        s.save()
+        output = storage.get(State, s.id)
+        self.assertTrue(output is not None, "Could not get requested instance")
+
+    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
+    def test_count(self):
+        """Tests the count function"""
+        storage = FileStorage()
+        s = State()
+        s.save()
+        count = storage.count(State)
+        self.assertTrue(count > 1, "Instance count not 0")
