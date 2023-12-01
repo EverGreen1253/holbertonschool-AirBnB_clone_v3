@@ -24,6 +24,8 @@ def stats():
         "users": 0
     }
 
+    # call storage.all() just one time to minimise
+    # number of db connections
     all = storage.all()
     for k, v in all.items():
         name = k.split(".")[0]
