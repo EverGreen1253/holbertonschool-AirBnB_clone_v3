@@ -74,6 +74,9 @@ def post_specific_city(state_id):
     """saves specified City"""
     from models.state import City
 
+    if state_id is None:
+        abort(404)
+
     existing = storage.get("State", state_id)
     if existing is None:
         abort(404)
