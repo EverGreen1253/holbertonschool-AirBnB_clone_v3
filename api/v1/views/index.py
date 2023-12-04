@@ -26,8 +26,8 @@ def stats():
 
     # call storage.all() just one time to minimise
     # number of db connections
-    all = storage.all()
-    for k, v in all.items():
+    all_data = storage.all()
+    for k, v in all_data.items():
         name = k.split(".")[0]
 
         if name == 'Amenity':
