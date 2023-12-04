@@ -55,6 +55,7 @@ def del_specific_state(state_id):
         abort(404)
 
     storage.delete(v)
+    storage.save()
 
     return {}, 200
 
