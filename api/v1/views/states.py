@@ -68,13 +68,12 @@ def post_specific_state():
     # from datetime import datetime
     # import uuid
 
-    try:
-        data = request.get_json()
-    except:
+    if request.get_json() is None:
         abort(400)
 
+    data = request.get_json()
     if data['name'] is None:
-        abort(404)
+        abort(400)
 
     # now = datetime.utcnow()
 
