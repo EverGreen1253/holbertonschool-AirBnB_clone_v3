@@ -5,7 +5,7 @@ starts a Flask web application
 
 from models import storage
 from os import getenv
-from api.v1.views.__init__ import app_views
+from api.v1.views import app_views
 from flask import Flask, jsonify
 app = Flask(__name__)
 
