@@ -66,26 +66,18 @@ def del_specific_state(state_id):
 @app_views.route('/states', strict_slashes=False,
                  methods=["POST"])
 def post_specific_state():
-    """returns specified State"""
+    """saves specified State"""
     from models.state import State
-    # from datetime import datetime
-    # import uuid
 
     if request.get_json() is None:
-        abort(400)
+        abort(400, "Not a JSON")
 
     data = request.get_json()
     if 'name' not in data:
-        abort(400)
-
-    # now = datetime.utcnow()
+        abort(400, "Missing name")
 
     attribs = {
-        # "__class__": class_name,
-        # "id": str(uuid.uuid4()),
         "name": data['name'],
-        # "created_at": now,
-        # "updated_at": now
     }
 
     new_state = State(**attribs)
@@ -97,11 +89,10 @@ def post_specific_state():
 @app_views.route('/states/<state_id>', strict_slashes=False,
                  methods=["PUT"])
 def put_specific_state(state_id):
-    """returns specified State"""
-    from models.state import State
+    """returns updated State"""
 
     if request.get_json() is None:
-        abort(400)
+        abort(400, "Not a JSON")
 
     data = request.get_json()
     if 'name' not in data:
@@ -111,16 +102,9 @@ def put_specific_state(state_id):
     if existing is None:
         abort(404)
 
-    # storage.delete(existing)
-    # storage.save()
-
-    # attribs = {
-    #     "name": data['name'],
-    # }
     for k, v in data.items():
         setattr(existing, k, v)
 
-    # new_state = State(**attribs)
     storage.save()
     storage.reload()
 
