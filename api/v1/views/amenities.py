@@ -79,10 +79,10 @@ def post_specific_amenity():
         "name": data['name'],
     }
 
-    new_state = Amenity(**attribs)
+    new_amenity = Amenity(**attribs)
     storage.save()
 
-    return new_state.to_dict(), 201
+    return new_amenity.to_dict(), 201
 
 
 @app_views.route('/amenities/<amenity_id>', strict_slashes=False,
