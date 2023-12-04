@@ -72,7 +72,7 @@ def post_specific_state():
         abort(400)
 
     data = request.get_json()
-    if data['name'] is None:
+    if 'name' not in data:
         abort(400)
 
     # now = datetime.utcnow()
