@@ -28,7 +28,8 @@ def states():
     return jsonify(data)
 
 
-@app_views.route('/states/<state_id>', strict_slashes=False, methods=["GET"])
+@app_views.route('/states/<state_id>', strict_slashes=False,
+                 methods=["GET"])
 def get_specific_state(state_id):
     """returns specified State"""
     data = {}
@@ -48,7 +49,8 @@ def get_specific_state(state_id):
     return data
 
 
-@app_views.route('/states/<state_id>', strict_slashes=False, methods=["DELETE"])
+@app_views.route('/states/<state_id>', strict_slashes=False,
+                 methods=["DELETE"])
 def del_specific_state(state_id):
     """returns specified State"""
     v = storage.get(class_name, state_id)
@@ -61,7 +63,8 @@ def del_specific_state(state_id):
     return {}, 200
 
 
-@app_views.route('/states', strict_slashes=False, methods=["POST"])
+@app_views.route('/states', strict_slashes=False,
+                 methods=["POST"])
 def post_specific_state():
     """returns specified State"""
     from models.state import State
@@ -89,3 +92,40 @@ def post_specific_state():
     storage.save()
 
     return new_state.to_dict(), 201
+
+
+@app_views.route('/states/<state_id>', strict_slashes=False,
+                 methods=["PUT"])
+def put_specific_state(state_id):
+    """returns specified State"""
+    from models.state import State
+
+    if request.get_json() is None:
+        abort(400)
+
+    data = request.get_json()
+    if 'name' not in data:
+        abort(400)
+
+    existing = storage.get(class_name, state_id)
+    if existing is None:
+        abort(404)
+
+    # storage.delete(existing)
+    # storage.save()
+
+    # attribs = {
+    #     "name": data['name'],
+    # }
+    for k, v in data.items():
+        setattr(existing, k, v)
+
+    # new_state = State(**attribs)
+    storage.save()
+    storage.reload()
+
+    updated = storage.get(class_name, state_id)
+    if updated is None:
+        abort(404)
+
+    return updated.to_dict(), 200
