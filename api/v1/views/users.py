@@ -106,8 +106,6 @@ def put_specific_user(user_id):
         abort(400, "Not a JSON")
 
     data = request.get_json()
-    if 'name' not in data:
-        abort(400)
 
     existing = storage.get(class_name, user_id)
     if existing is None:

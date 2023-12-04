@@ -5,25 +5,7 @@ import json
 import requests
 
 if __name__ == "__main__":
-    """ get the state without cities
+    """ PUT /api/v1/users/<user_id>
     """
-    r = requests.get("http://0.0.0.0:5000/api/v1/states")
-    r_j = r.json()
-    
-    state_id = None
-    for state_j in r_j:
-        rs = requests.get("http://0.0.0.0:5000/api/v1/states/{}/cities".format(state_j.get('id')))
-        rs_j = rs.json()
-        if len(rs_j) == 0:
-            state_id = state_j.get('id')
-            break
-    
-    if state_id is None:
-        print("State without cities not found")
-    
-    """ Fetch cities
-    """
-    r = requests.get("http://0.0.0.0:5000/api/v1/states/{}/cities".format(state_id))
-    r_j = r.json()
-    print(type(r_j))
-    print(len(r_j))
+    r = requests.put("http://0.0.0.0:5000/api/v1/users/{}".format("doesn_t_exist"), data=json.dumps({ 'first_name': "NewFirstName" }), headers={ 'Content-Type': "application/json" })
+    print(r.status_code)
