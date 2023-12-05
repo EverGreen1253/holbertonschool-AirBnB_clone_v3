@@ -92,7 +92,7 @@ def post_new_review(place_id):
 
 @app_views.route('/reviews/<review_id>', strict_slashes=False,
                  methods=["PUT"])
-def put_specific_place(review_id):
+def put_specific_review(review_id):
     """returns updated Review"""
 
     existing = storage.get(class_name, review_id)
