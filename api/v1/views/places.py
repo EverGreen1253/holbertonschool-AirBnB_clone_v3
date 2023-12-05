@@ -80,7 +80,7 @@ def post_new_place(city_id):
 
     attribs = {
         "name": data['name'],
-        "city_id": data['city_id'],
+        "city_id": city_id,
         "user_id": data['user_id']
     }
 
