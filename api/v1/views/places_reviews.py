@@ -58,7 +58,7 @@ def del_specific_review(review_id):
                  methods=["POST"])
 def post_new_review(place_id):
     """saves new Place"""
-    from models.place import Review
+    from models.review import Review
 
     place = storage.get("Place", place_id)
     if place is None:
